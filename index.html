@@ -2,45 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MMA Training Decision</title>
+  <title>MMA Training Readiness</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 15px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #result {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .train { color: #2e7d32; }   /* green */
+    .modify { color: #f9a825; }  /* amber */
+    .rest { color: #c62828; }    /* red */
+
+    #prescription {
+      font-size: 1.05em;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  
-<style>
-#result {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
 
-.train { color: #2e7d32; }   /* green */
-.modify { color: #f9a825; }  /* amber */
-.rest { color: #c62828; }    /* red */
-
-#prescription {
-  font-size: 1.05em;
-  line-height: 1.5;
-}
-</style>
 <h2>Training Readiness Check</h2>
 
 <h3>Red Flags (any = REST)</h3>
-<label><input type="checkbox" id="fever"> Fever</label><br>
-<label><input type="checkbox" id="chest"> Chest congestion</label><br>
-<label><input type="checkbox" id="dizzy"> Dizziness</label><br>
+<label><input type="checkbox" id="fever"> Fever</label>
+<label><input type="checkbox" id="chest"> Chest congestion</label>
+<label><input type="checkbox" id="dizzy"> Dizziness</label>
 
 <h3>Readiness</h3>
-<label><input type="checkbox" class="ready"> Energy ≥80%</label><br>
-<label><input type="checkbox" class="ready"> Motivation normal</label><br>
-<label><input type="checkbox" class="ready"> Coordination sharp</label><br>
-<label><input type="checkbox" class="ready"> Nasal breathing easy</label><br>
-<label><input type="checkbox" class="ready"> Limbs feel light</label><br>
+<label><input type="checkbox" class="ready"> Energy ≥80%</label>
+<label><input type="checkbox" class="ready"> Motivation normal</label>
+<label><input type="checkbox" class="ready"> Coordination sharp</label>
+<label><input type="checkbox" class="ready"> Nasal breathing easy</label>
+<label><input type="checkbox" class="ready"> Limbs feel light</label>
 
 <h3>Symptoms below the neck?</h3>
-<label><input type="checkbox" id="belowNeck"> Yes</label><br>
+<label><input type="checkbox" id="belowNeck"> Yes</label>
 
 <h3>10-minute warm-up made me feel worse</h3>
-<label><input type="checkbox" id="worseAfter"> Yes</label><br><br>
+<label><input type="checkbox" id="worseAfter"> Yes</label>
 
 <button id="evaluateBtn">Evaluate</button>
 
@@ -71,43 +96,39 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
     }
   }
 
-  // UPDATE DECISION
   const resultEl = document.getElementById("result");
   const prescriptionEl = document.getElementById("prescription");
 
+  // Reset any previous color
   resultEl.className = "";
 
+  // Set decision and prescription
   if (decision === "TRAIN") {
     resultEl.innerText = "TRAIN";
     resultEl.classList.add("train");
-
     prescriptionEl.innerHTML =
       "<strong>Session:</strong> Full training allowed<br>" +
       "<strong>Focus:</strong> Technique, timing, normal conditioning<br>" +
-      "<strong>Avoid:</strong> Max lifts, ego sparring if fatigued";
-  }
-
-  if (decision === "MODIFY") {
+      "<strong>Avoid:</strong> Max lifts or ego sparring if fatigued";
+  } else if (decision === "MODIFY") {
     resultEl.innerText = "MODIFY";
     resultEl.classList.add("modify");
-
     prescriptionEl.innerHTML =
       "<strong>Session:</strong> Modified training<br>" +
-      "<strong>Focus:</strong> Technique, drilling, Zone 2 cardio<br>" +
+      "<strong>Focus:</strong> Technique, drilling, Zone 2 cardio only<br>" +
       "<strong>Avoid:</strong> Hard sparring, max effort conditioning<br>" +
       "<strong>Goal:</strong> Leave feeling better than you arrived";
-  }
-
-  if (decision === "REST") {
+  } else {
     resultEl.innerText = "REST";
     resultEl.classList.add("rest");
-
     prescriptionEl.innerHTML =
       "<strong>Session:</strong> Rest / recovery day<br>" +
-      "<strong>Do:</strong> Walking, mobility, nasal breathing<br>" +
-      "<strong>Priority:</strong> Sleep, fluids, food<br>" +
+      "<strong>Do:</strong> Walking, mobility, nasal breathing only<br>" +
+      "<strong>Priority:</strong> Sleep, hydration, nutrition<br>" +
       "<strong>Reassess:</strong> Tomorrow";
   }
+
+});
 </script>
 
 </body>
