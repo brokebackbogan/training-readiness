@@ -26,7 +26,7 @@
     .modify { color: #f9a825; }  /* amber */
     .rest { color: #c62828; }    /* red */
 
-    #prescription {
+    #prescription, #classType {
       font-size: 1.05em;
       line-height: 1.5;
       margin-bottom: 20px;
@@ -71,6 +71,7 @@
 
 <h2 id="result"></h2>
 <div id="prescription"></div>
+<p id="classType"></p>
 
 <script>
 document.getElementById("evaluateBtn").addEventListener("click", function () {
@@ -98,11 +99,12 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
 
   const resultEl = document.getElementById("result");
   const prescriptionEl = document.getElementById("prescription");
+  const classEl = document.getElementById("classType");
 
-  // Reset any previous color
+  // Reset previous color
   resultEl.className = "";
 
-  // Set decision and prescription
+  // Set decision, prescription, and class type
   if (decision === "TRAIN") {
     resultEl.innerText = "TRAIN";
     resultEl.classList.add("train");
@@ -110,6 +112,8 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
       "<strong>Session:</strong> Full training allowed<br>" +
       "<strong>Focus:</strong> Technique, timing, normal conditioning<br>" +
       "<strong>Avoid:</strong> Max lifts or ego sparring if fatigued";
+    classEl.innerHTML =
+      "<strong>Recommended Class:</strong> Full class, including sparring and normal conditioning.";
   } else if (decision === "MODIFY") {
     resultEl.innerText = "MODIFY";
     resultEl.classList.add("modify");
@@ -118,6 +122,8 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
       "<strong>Focus:</strong> Technique, drilling, Zone 2 cardio only<br>" +
       "<strong>Avoid:</strong> Hard sparring, max effort conditioning<br>" +
       "<strong>Goal:</strong> Leave feeling better than you arrived";
+    classEl.innerHTML =
+      "<strong>Recommended Class:</strong> Technique drills and light conditioning only. No sparring.";
   } else {
     resultEl.innerText = "REST";
     resultEl.classList.add("rest");
@@ -126,6 +132,8 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
       "<strong>Do:</strong> Walking, mobility, nasal breathing only<br>" +
       "<strong>Priority:</strong> Sleep, hydration, nutrition<br>" +
       "<strong>Reassess:</strong> Tomorrow";
+    classEl.innerHTML =
+      "<strong>Recommended Class:</strong> Rest day — focus on recovery, mobility, walking, or breathing exercises.";
   }
 
 });
