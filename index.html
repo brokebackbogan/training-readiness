@@ -30,30 +30,64 @@
 <button id="evaluateBtn">Evaluate</button>
 
 <h2 id="result"></h2>
+<p id="prescription" style="font-size: 1.1em;"></p>
 
 <script>
 document.getElementById("evaluateBtn").addEventListener("click", function () {
+  let decision = "REST";
+
+  // HARD STOPS
   if (
     document.getElementById("fever").checked ||
     document.getElementById("chest").checked ||
     document.getElementById("dizzy").checked ||
     document.getElementById("belowNeck").checked
   ) {
-    document.getElementById("result").innerText = "REST";
-    return;
+    decision = "REST";
+  } else {
+    const readiness = document.querySelectorAll(".ready:checked").length;
+
+    if (readiness >= 4) decision = "TRAIN";
+    else if (readiness >= 2) decision = "MODIFY";
+
+    if (document.getElementById("worseAfter").checked) {
+      decision = decision === "TRAIN" ? "MODIFY" : "REST";
+    }
   }
 
-  const readiness = document.querySelectorAll(".ready:checked").length;
-  let decision = "REST";
-
-  if (readiness >= 4) decision = "TRAIN";
-  else if (readiness >= 2) decision = "MODIFY";
-
-  if (document.getElementById("worseAfter").checked) {
-    decision = decision === "TRAIN" ? "MODIFY" : "REST";
-  }
-
+  // DISPLAY RESULT
   document.getElementById("result").innerText = decision;
+
+  // PRESCRIPTION LOGIC
+  let prescriptionText = "";
+
+  if (decision === "TRAIN") {
+    prescriptionText = `
+      Full training allowed.
+      Focus on technique, timing, and normal conditioning.
+      Avoid max lifts or all-out sparring if any residual fatigue is present.
+    `;
+  }
+
+  if (decision === "MODIFY") {
+    prescriptionText = `
+      Modified session recommended.
+      Technique, drilling, and Zone 2 cardio only.
+      No hard sparring, no max effort conditioning.
+      Aim to leave feeling better than you arrived.
+    `;
+  }
+
+  if (decision === "REST") {
+    prescriptionText = `
+      Rest day.
+      Light walking, mobility, and nasal breathing only.
+      Prioritise sleep, hydration, and food.
+      Reassess tomorrow.
+    `;
+  }
+
+  document.getElementById("prescription").innerText = prescriptionText;
 });
 </script>
 
