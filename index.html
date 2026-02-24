@@ -30,7 +30,7 @@
 <button id="evaluateBtn">Evaluate</button>
 
 <h2 id="result"></h2>
-<p id="prescription"></p>
+<div id="prescription"></div>
 
 <script>
 document.getElementById("evaluateBtn").addEventListener("click", function () {
@@ -89,6 +89,20 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
 
 });
 </script>
+<style>
+#result {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
 
+.train { color: #2e7d32; }   /* green */
+.modify { color: #f9a825; }  /* amber */
+.rest { color: #c62828; }    /* red */
+
+#prescription {
+  font-size: 1.05em;
+  line-height: 1.5;
+}
+</style>
 </body>
 </html>
