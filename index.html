@@ -1,17 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MMA Training Decision</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h2>Training Readiness Check</h2>
+
+<h3>Red Flags (any = REST)</h3>
+<label><input type="checkbox" id="fever"> Fever</label><br>
+<label><input type="checkbox" id="chest"> Chest congestion</label><br>
+<label><input type="checkbox" id="dizzy"> Dizziness</label><br>
+
+<h3>Readiness</h3>
+<label><input type="checkbox" class="ready"> Energy ≥80%</label><br>
 <label><input type="checkbox" class="ready"> Motivation normal</label><br>
-
 <label><input type="checkbox" class="ready"> Coordination sharp</label><br>
-
 <label><input type="checkbox" class="ready"> Nasal breathing easy</label><br>
-
 <label><input type="checkbox" class="ready"> Limbs feel light</label><br>
 
 <h3>Symptoms below the neck?</h3>
-
 <label><input type="checkbox" id="belowNeck"> Yes</label><br>
 
 <h3>10-minute warm-up made me feel worse</h3>
-
 <label><input type="checkbox" id="worseAfter"> Yes</label><br><br>
 
 <button id="evaluateBtn">Evaluate</button>
@@ -19,25 +32,30 @@
 <h2 id="result"></h2>
 
 <script>
-
 document.getElementById("evaluateBtn").addEventListener("click", function () {
-
   if (
-
     document.getElementById("fever").checked ||
-
     document.getElementById("chest").checked ||
-
     document.getElementById("dizzy").checked ||
-
     document.getElementById("belowNeck").checked
-
   ) {
-
     document.getElementById("result").innerText = "REST";
-
     return;
-
   }
 
   const readiness = document.querySelectorAll(".ready:checked").length;
+  let decision = "REST";
+
+  if (readiness >= 4) decision = "TRAIN";
+  else if (readiness >= 2) decision = "MODIFY";
+
+  if (document.getElementById("worseAfter").checked) {
+    decision = decision === "TRAIN" ? "MODIFY" : "REST";
+  }
+
+  document.getElementById("result").innerText = decision;
+});
+</script>
+
+</body>
+</html>
