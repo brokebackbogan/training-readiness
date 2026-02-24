@@ -6,7 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  
+<style>
+#result {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
 
+.train { color: #2e7d32; }   /* green */
+.modify { color: #f9a825; }  /* amber */
+.rest { color: #c62828; }    /* red */
+
+#prescription {
+  font-size: 1.05em;
+  line-height: 1.5;
+}
+</style>
 <h2>Training Readiness Check</h2>
 
 <h3>Red Flags (any = REST)</h3>
@@ -57,52 +72,44 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
   }
 
   // UPDATE DECISION
-  document.getElementById("result").innerText = decision;
+  <script>
+  const resultEl = document.getElementById("result");
+  const prescriptionEl = document.getElementById("prescription");
 
-  // UPDATE PRESCRIPTION
-  let prescription = "";
+  resultEl.className = "";
 
   if (decision === "TRAIN") {
-    prescription =
-      "Full training allowed.<br>" +
-      "Focus on technique, timing, and normal conditioning.<br>" +
-      "Avoid max lifts or all-out sparring if fatigue is present.";
+    resultEl.innerText = "TRAIN";
+    resultEl.classList.add("train");
+
+    prescriptionEl.innerHTML =
+      "<strong>Session:</strong> Full training allowed<br>" +
+      "<strong>Focus:</strong> Technique, timing, normal conditioning<br>" +
+      "<strong>Avoid:</strong> Max lifts, ego sparring if fatigued";
   }
 
   if (decision === "MODIFY") {
-    prescription =
-      "Modified session recommended.<br>" +
-      "Technique, drilling, and Zone 2 cardio only.<br>" +
-      "No hard sparring or max-effort conditioning.<br>" +
-      "Leave feeling better than you arrived.";
+    resultEl.innerText = "MODIFY";
+    resultEl.classList.add("modify");
+
+    prescriptionEl.innerHTML =
+      "<strong>Session:</strong> Modified training<br>" +
+      "<strong>Focus:</strong> Technique, drilling, Zone 2 cardio<br>" +
+      "<strong>Avoid:</strong> Hard sparring, max effort conditioning<br>" +
+      "<strong>Goal:</strong> Leave feeling better than you arrived";
   }
 
   if (decision === "REST") {
-    prescription =
-      "Rest day.<br>" +
-      "Light walking, mobility, and nasal breathing only.<br>" +
-      "Prioritise sleep, hydration, and food.<br>" +
-      "Reassess tomorrow.";
+    resultEl.innerText = "REST";
+    resultEl.classList.add("rest");
+
+    prescriptionEl.innerHTML =
+      "<strong>Session:</strong> Rest / recovery day<br>" +
+      "<strong>Do:</strong> Walking, mobility, nasal breathing<br>" +
+      "<strong>Priority:</strong> Sleep, fluids, food<br>" +
+      "<strong>Reassess:</strong> Tomorrow";
   }
-
-  document.getElementById("prescription").innerHTML = prescription;
-
-});
 </script>
-<style>
-#result {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
 
-.train { color: #2e7d32; }   /* green */
-.modify { color: #f9a825; }  /* amber */
-.rest { color: #c62828; }    /* red */
-
-#prescription {
-  font-size: 1.05em;
-  line-height: 1.5;
-}
-</style>
 </body>
 </html>
