@@ -30,10 +30,11 @@
 <button id="evaluateBtn">Evaluate</button>
 
 <h2 id="result"></h2>
-<p id="prescription" style="font-size: 1.1em;"></p>
+<p id="prescription"></p>
 
 <script>
 document.getElementById("evaluateBtn").addEventListener("click", function () {
+
   let decision = "REST";
 
   // HARD STOPS
@@ -55,39 +56,37 @@ document.getElementById("evaluateBtn").addEventListener("click", function () {
     }
   }
 
-  // DISPLAY RESULT
+  // UPDATE DECISION
   document.getElementById("result").innerText = decision;
 
-  // PRESCRIPTION LOGIC
-  let prescriptionText = "";
+  // UPDATE PRESCRIPTION
+  let prescription = "";
 
   if (decision === "TRAIN") {
-    prescriptionText = `
-      Full training allowed.
-      Focus on technique, timing, and normal conditioning.
-      Avoid max lifts or all-out sparring if any residual fatigue is present.
-    `;
+    prescription =
+      "Full training allowed.<br>" +
+      "Focus on technique, timing, and normal conditioning.<br>" +
+      "Avoid max lifts or all-out sparring if fatigue is present.";
   }
 
   if (decision === "MODIFY") {
-    prescriptionText = `
-      Modified session recommended.
-      Technique, drilling, and Zone 2 cardio only.
-      No hard sparring, no max effort conditioning.
-      Aim to leave feeling better than you arrived.
-    `;
+    prescription =
+      "Modified session recommended.<br>" +
+      "Technique, drilling, and Zone 2 cardio only.<br>" +
+      "No hard sparring or max-effort conditioning.<br>" +
+      "Leave feeling better than you arrived.";
   }
 
   if (decision === "REST") {
-    prescriptionText = `
-      Rest day.
-      Light walking, mobility, and nasal breathing only.
-      Prioritise sleep, hydration, and food.
-      Reassess tomorrow.
-    `;
+    prescription =
+      "Rest day.<br>" +
+      "Light walking, mobility, and nasal breathing only.<br>" +
+      "Prioritise sleep, hydration, and food.<br>" +
+      "Reassess tomorrow.";
   }
 
-  document.getElementById("prescription").innerText = prescriptionText;
+  document.getElementById("prescription").innerHTML = prescription;
+
 });
 </script>
 
